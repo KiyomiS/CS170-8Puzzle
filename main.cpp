@@ -23,6 +23,6 @@ int main() {
     }
     // puzzle base_puzzle = puzzle();
     // base_puzzle.PrintPuzzle();
-    puzzle new_puzzle = puzzle(start);
+    puzzle new_puzzle = puzzle(start); //testing user inputs
     new_puzzle.PrintPuzzle();
 }
