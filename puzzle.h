@@ -27,6 +27,22 @@ class puzzle {
                 }
             }
         }
+
+        void MoveLeft(){
+
+        }
+
+        void MoveRight(){
+
+        }
+
+        void MoveUp() {
+
+        }
+
+        void MoveDown() {
+            
+        }
 };
 
 class row : puzzle {
