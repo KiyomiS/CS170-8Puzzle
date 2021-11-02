@@ -2,6 +2,7 @@
 #define PUZZLE_H
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 class puzzle {
@@ -26,26 +27,32 @@ class puzzle {
                     cout << endl;
                 }
             }
+            cout << endl;
         }
 
-        void MoveLeft(vector<int> input_puzzle, int zero_spot){
-            input_puzzle[zero_spot] = input_puzzle[zero_spot - 1];
-            input_puzzle[zero_spot] = 0;
+        void MoveLeft(int zero_spot){
+            swap(puzzle_state[zero_spot],puzzle_state[zero_spot - 1]);
         }
 
-        void MoveRight(vector<int> input_puzzle, int zero_spot){
-            input_puzzle[zero_spot] = input_puzzle[zero_spot + 1];
-            input_puzzle[zero_spot] = 0;
+        void MoveRight(int zero_spot){
+            swap(puzzle_state[zero_spot],puzzle_state[zero_spot + 1]);
         }
 
-        void MoveUp(vector<int> input_puzzle, int zero_spot) {
-            input_puzzle[zero_spot] = input_puzzle[zero_spot - 3];
-            input_puzzle[zero_spot] = 0;
+        void MoveUp(int zero_spot) {
+            swap(puzzle_state[zero_spot],puzzle_state[zero_spot - 3]);
         }
 
-        void MoveDown(vector<int> input_puzzle, int zero_spot) {
-            input_puzzle[zero_spot] = input_puzzle[zero_spot + 3];
-            input_puzzle[zero_spot] = 0;
+        void MoveDown(int zero_spot) {
+            swap(puzzle_state[zero_spot],puzzle_state[zero_spot + 3]);
+        }
+
+        int GetZeroSpot() {
+            for(int i = 0; i < 9; i++){
+                if(puzzle_state[i] == 0){
+                    return i;
+                }
+            }
+            return 0;
         }
 };
 
