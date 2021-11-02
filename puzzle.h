@@ -28,12 +28,14 @@ class puzzle {
             }
         }
 
-        void MoveLeft(){
-
+        void MoveLeft(vector<int> input_puzzle, int zero_spot){
+            input_puzzle[zero_spot] = input_puzzle[zero_spot - 1];
+            input_puzzle[zero_spot] = 0;
         }
 
-        void MoveRight(){
-
+        void MoveRight(vector<int> input_puzzle, int zero_spot){
+            input_puzzle[zero_spot] = input_puzzle[zero_spot + 1];
+            input_puzzle[zero_spot] = 0;
         }
 
         void MoveUp() {
@@ -41,7 +43,7 @@ class puzzle {
         }
 
         void MoveDown() {
-            
+
         }
 };
 
