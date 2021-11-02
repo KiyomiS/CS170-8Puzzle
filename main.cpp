@@ -25,4 +25,27 @@ int main() {
     // base_puzzle.PrintPuzzle();
     puzzle new_puzzle = puzzle(start); //testing user inputs
     new_puzzle.PrintPuzzle();
+    int i;
+    i = new_puzzle.GetZeroSpot();
+    cout << i << endl;
+
+    new_puzzle.MoveLeft(i);
+
+    new_puzzle.PrintPuzzle();
+
+    i = new_puzzle.GetZeroSpot();
+
+    new_puzzle.MoveRight(i);
+
+    new_puzzle.PrintPuzzle();
+    i = new_puzzle.GetZeroSpot();
+
+    new_puzzle.MoveUp(i);
+
+    new_puzzle.PrintPuzzle();
+    i = new_puzzle.GetZeroSpot();
+
+    new_puzzle.MoveDown(i);
+
+    new_puzzle.PrintPuzzle();
 }
