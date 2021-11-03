@@ -11,9 +11,9 @@ class Node{
         vector<int> state;
         Node *parent;
     public:
-        Node(){
+        Node(vector<int> st){
             this->cost = 0;
-            this->state = state;
+            this->state = st;
             this->parent = nullptr;
         }
 

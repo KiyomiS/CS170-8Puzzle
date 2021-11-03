@@ -3,12 +3,13 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
 #include "Node.h"
 using namespace std;
 
 class problem {
     private:
-       vector<int>problem_state = {1, 2, 3, 4, 5, 6, 7, 8, 0}; // array of size 9 to hold the problem.
+       vector<int>problem_state; // array of size 9 to hold the problem.
        vector<int>end_goal = {1, 2, 3, 4, 5, 6, 7, 8, 0};//goal state
     public:
         problem() {};
@@ -16,6 +17,10 @@ class problem {
         problem(vector<int> input_puzzle){
             this->problem_state = input_puzzle;
         };
+
+        vector<int> getGoal(){
+            return end_goal;
+        }
 
         vector<int> MoveLeft(vector<int> current){
             int zero_spot;
