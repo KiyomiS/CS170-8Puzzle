@@ -1,4 +1,8 @@
 #include <queue>
+#include "Node.h"
+//https://stackoverflow.com/questions/16749723/how-i-can-find-value-in-priority-queue 
+//https://stackoverflow.com/questions/19467485/how-to-remove-element-not-at-top-from-priority-queue
+
 template<
     class T,
     class Container = std::vector<T>,
@@ -19,9 +23,9 @@ public:
     };
 
     bool remove(const T& value) {
-        auto it = std::find(this->c.begin(), this->c.end(), value);
-        if (it != this->c.end()) {
-            this->c.erase(it);
+        auto first = std::find(this->c.begin(), this->c.end(), value);
+        if (first != this->c.end()) {
+            this->c.erase(first);
             std::make_heap(this->c.begin(), this->c.end(), this->comp);
             return true;
         }
@@ -29,5 +33,19 @@ public:
             return false;
         }
     }
+
+	bool isGreater(const T& state){
+		auto first = this->c.begin();
+		auto last = this->c.end();
+		while (first != last){
+			if (*first == state){
+				if (*first > state){
+					return true;
+				}
+			}
+			++first;
+		}
+		return false;
+	}
 
 };
