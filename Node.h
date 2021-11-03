@@ -25,6 +25,10 @@ class Node{
 
         ~Node(){};
 
+        void setCost(int i){
+            this->cost = i;
+        }
+
         int getCost() {
             return cost;
         }

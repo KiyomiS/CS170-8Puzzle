@@ -4,8 +4,11 @@
 #include <queue>
 #include "problem.h"
 #include "Node.h"
+#include "custom_priority_queue.h"
 
 using namespace std;
+
+//https://stackoverflow.com/questions/19467485/how-to-remove-element-not-at-top-from-priority-queue
 
 Node * uniformSearch(problem * prb, vector<int> start_point);
 
@@ -35,11 +38,11 @@ int main() {
     //Node * check = start_game->Child(print_start, 4); checking moving functions in nodes
     //check->PrintState();
 
-    // if(searchOption == 1){
-    //     game_over = uniformSearch(start_game, start);
-    // }
+    if(searchOption == 1){
+        game_over = uniformSearch(start_game, start);
+    }
 
-    // game_over->PrintState();
+    game_over->PrintState();
 //     puzzle base_puzzle = puzzle();
 //     base_puzzle.PrintPuzzle();
 //     puzzle new_puzzle = puzzle(start); //testing user inputs
@@ -74,17 +77,21 @@ int main() {
 Node * uniformSearch(problem * prb, vector<int> start_point){
     unsigned long long numberofNodes = 0;
     unsigned long long depth = 0;
-    priority_queue<Node*> uniform_queue;
+    custom_priority_queue<Node*> uniform_queue;
     Node* begin = new Node(start_point);
     vector<Node*> track;
     uniform_queue.push(begin);
-
+   
     while(!uniform_queue.empty()){
         Node * check = uniform_queue.top(); //taking the first node, at the beginning it will be the node passed in or default node
-        track.push_back(check);
+        
+        if(track.empty()){
+            track.push_back(check); // keep track of all different visited states so if we run into the same state we can compare costs.
+        }
+
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
-            cout << "Puzzle Solved." << endl << "The cost was: " << numberofNodes << endl;
+            cout << "Puzzle Solved." << endl << "The cost was: " << check->getCost() << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
@@ -93,8 +100,31 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
             numberofNodes++; //keep track of number of nodes created
             if(prb->canDo(check, i)){ //if it is a valid move
                 Node* createChild = prb->Child(check, i); //create the child node
-                uniform_queue.push(createChild); //adding new children to queue
-                cout << "Pushing" << endl;
+
+                bool istrue = false;
+                for(int i = 0; i < track.size(); i++){ //looking to see state has already been visited
+                    cout << "Checking" << endl;
+                    if(track[i] == createChild){ //if state is visited
+                        istrue = true;
+                        if(track[i]->getCost() > createChild->getCost()){ //check cost of both nodes
+                        //if new one is cheaper, add it to the queue
+                            if(!uniform_queue.find(createChild)){
+                                cout << "Not found " << endl;
+                                uniform_queue.push(createChild); //adding new children to queue
+                            } else { //remove more expensive one, and add cheaper one
+                                uniform_queue.remove(createChild);
+                                uniform_queue.push(createChild);
+                            }
+                            track[i]->setCost(createChild->getCost());
+                        } else {
+                            createChild->setCost(track[i]->getCost());
+                        }
+                    }
+                }
+                if(!istrue) { //not an old state
+                    uniform_queue.push(createChild); //adding new children to queue if its not already in                
+                }
+                cout << "Option" << endl;
                 createChild->PrintState();
             }
         }
