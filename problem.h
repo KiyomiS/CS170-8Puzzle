@@ -81,12 +81,16 @@ class problem {
             Node * new_child;
             if(oper == 0) {
                 new_child = new Node(parent->getCost(), MoveLeft(parent->getState()), parent);
+                //cout << "left made" << endl;
             } else if (oper == 1) {
                 new_child = new Node(parent->getCost(), MoveRight(parent->getState()), parent);
+                //cout << "right made" << endl;
             } else if (oper == 2) {
                 new_child = new Node(parent->getCost(), MoveUp(parent->getState()), parent);
+                //cout << "up made" << endl;
             } else {
                 new_child = new Node(parent->getCost(), MoveDown(parent->getState()), parent);
+                //cout << "down made" << endl;
             }
             return new_child;
         }
@@ -111,7 +115,7 @@ class problem {
                 return true;
             }
             if(option == 2){
-                if(zero_spot == 1 || zero_spot == 2 || zero_spot == 3){
+                if(zero_spot == 0 || zero_spot == 1 || zero_spot == 2){
                     return false;
                 }
                 return true;

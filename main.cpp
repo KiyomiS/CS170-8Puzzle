@@ -8,8 +8,6 @@
 
 using namespace std;
 
-
-
 Node * uniformSearch(problem * prb, vector<int> start_point);
 
 int main() {
@@ -77,10 +75,10 @@ int main() {
 Node * uniformSearch(problem * prb, vector<int> start_point){
     unsigned long long numberofNodes = 0;
     unsigned long long depth = 0;
-    custom_priority_queue<Node*> uniform_queue;
+    custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point);
-    vector<Node*> track; //keep track of all states
-    vector<Node*> expandedSet; //keep track of all states that have already been expanded.
+    vector<Node*> track(0); //keep track of all states
+    vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
     uniform_queue.push(begin);
    
     while(!uniform_queue.empty()){
@@ -89,49 +87,66 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
         if(track.empty()){
             track.push_back(check); // keep track of all different visited states so if we run into the same state we can compare costs.
         }
+        //cout << expandedSet.size();
+        // string in;
+        // cin >> in;
+        cout << "The best state to expand with g(n) = " << check->getCost() << " and h(n) = " << check->getHCost() << " is...." << endl;
+        check->PrintState();
 
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
             cout << "Puzzle Solved." << endl << "The cost was: " << check->getCost() << endl;
+            cout << "There were " << numberofNodes << " nodes created." << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
         depth++; // keep track of depth
         expandedSet.push_back(check);
+
         for(int i = 0; i < 4; i++){ //have to check 4 operators
             numberofNodes++; //keep track of number of nodes created
             if(prb->canDo(check, i)){ //if it is a valid move
                 Node* createChild = prb->Child(check, i); //create the child node
 
                 bool istrue = false;
-                for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been visited
+                for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been expanded
                     // cout << "Checking" << endl;
-                    cout << "checking if state has been visited" << endl;
-                    if(expandedSet[i]->getState() == createChild->getState()){ //if state is visited
+                    //cout << "checking if state has been visited" << endl;
+                    if(expandedSet[i] == createChild){ //if state is visited
                          istrue = true;
                     }
                 }
-                cout << "done checking" << endl;
+
+                bool checktrack = false;
+                for(int i = 0; i < track.size(); i++){ //looking to see state has already been visited
+                    // cout << "Checking" << endl;
+                    //cout << "checking if state has been visited" << endl;
+                    if(track[i]== createChild){ //if state is visited
+                         checktrack = true;
+                    }
+                }
+
+                //cout << "done checking" << endl;
                 if(!istrue) { //not an old expanded state, check if its in queue
-                    if(!uniform_queue.find(createChild)){ //if its not in the queue nor has it been expanded
+                    if(!uniform_queue.find(createChild)){ //if its not in the queue nor has it been expanded nor is it in track, basically a whole new state
                         uniform_queue.push(createChild); //add to queue
                         track.push_back(createChild); //add to track as well
-                        cout << "option" << endl;
-                        createChild->PrintState();
-                    } else { // its in the queue but not expanded yet.
+                        //cout << "option" << endl;
+                        //createChild->PrintState();
+                    } else {
                         for(int i = 0; i < track.size(); i++) {
                             if(track[i]->getState() == createChild->getState()){ //find the one in the queue by looking through track
                                 if(track[i]->getCost() < createChild->getCost()){ //check if node in track has less cost
                                     uniform_queue.push(track[i]); //if so add it instead of new child
                                     //delete createChild;
-                                    cout << "Option" << endl;
-                                    track[i]->PrintState();
+                                    //cout << "Option" << endl;
+                                    //track[i]->PrintState();
                                 } else {
                                     uniform_queue.remove(createChild);
                                     uniform_queue.push(createChild); //add new lower node
                                     track[i]->setCost(createChild->getCost()); //set the tracked nodes cost to lower of the two.
-                                    cout << "Option" << endl;
-                                    createChild->PrintState(); 
+                                    //cout << "Option" << endl;
+                                    //createChild->PrintState(); 
                                 }
                             }
                         } 
