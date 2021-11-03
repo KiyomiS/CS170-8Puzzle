@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "Puzzle.h"
+#include "Problem.h"
 using namespace std;
 
 int main() {
@@ -21,31 +21,33 @@ int main() {
             start[i] = input;
         }
     }
-    // puzzle base_puzzle = puzzle();
-    // base_puzzle.PrintPuzzle();
-    puzzle new_puzzle = puzzle(start); //testing user inputs
-    new_puzzle.PrintPuzzle();
-    int i;
-    i = new_puzzle.GetZeroSpot();
-    cout << i << endl;
+//     puzzle base_puzzle = puzzle();
+//     base_puzzle.PrintPuzzle();
+//     puzzle new_puzzle = puzzle(start); //testing user inputs
+//     new_puzzle.PrintPuzzle();
 
-    new_puzzle.MoveLeft(i);
+//testing each move
+//     int i;
+//     i = new_puzzle.GetZeroSpot();
+//     cout << i << endl;
 
-    new_puzzle.PrintPuzzle();
+//     new_puzzle.MoveLeft(i);
 
-    i = new_puzzle.GetZeroSpot();
+//     new_puzzle.PrintPuzzle();
 
-    new_puzzle.MoveRight(i);
+//     i = new_puzzle.GetZeroSpot();
 
-    new_puzzle.PrintPuzzle();
-    i = new_puzzle.GetZeroSpot();
+//     new_puzzle.MoveRight(i);
 
-    new_puzzle.MoveUp(i);
+//     new_puzzle.PrintPuzzle();
+//     i = new_puzzle.GetZeroSpot();
 
-    new_puzzle.PrintPuzzle();
-    i = new_puzzle.GetZeroSpot();
+//     new_puzzle.MoveUp(i);
 
-    new_puzzle.MoveDown(i);
+//     new_puzzle.PrintPuzzle();
+//     i = new_puzzle.GetZeroSpot();
 
-    new_puzzle.PrintPuzzle();
-}
+//     new_puzzle.MoveDown(i);
+
+//     new_puzzle.PrintPuzzle();
+// }
