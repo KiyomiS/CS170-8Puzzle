@@ -18,9 +18,9 @@ class Node{
         }
 
         Node(int cst, vector<int> st, Node* par){
-            cost = par->cost + 1;
-            state = st;
-            parent = par;
+            this->cost = par->cost + 1;
+            this->state = st;
+            this->parent = par;
         }
 
         ~Node(){};

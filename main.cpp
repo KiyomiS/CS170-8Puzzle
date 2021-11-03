@@ -7,23 +7,7 @@
 
 using namespace std;
 
-Node * uniformSearch(problem * prb, vector<int> start_point){
-    unsigned long long numberofNodes = 0;
-    priority_queue<Node*> uniform_queue;
-    Node* begin = new Node(start_point);
-    uniform_queue.push(begin);
-
-    while(!uniform_queue.empty()){
-        Node * check = uniform_queue.top();
-
-        if (check->getState() == prb->getGoal()){
-            cout << "Puzzle Solved." << endl << "The cost was: " << numberofNodes << endl;
-            return check;
-        }
-    }
-
-    return nullptr;
-}
+Node * uniformSearch(problem * prb, vector<int> start_point);
 
 int main() {
     int option, searchOption;
@@ -44,18 +28,24 @@ int main() {
 
     problem * start_game = new problem(start);
     Node * game_over = nullptr;
+    Node* print_start = new Node(start_game->getState());
 
-    if(searchOption == 1){
-        game_over = uniformSearch(start_game, start);
-    }
+    print_start->PrintState();
 
-    game_over->PrintState();
+    //Node * check = start_game->Child(print_start, 4); checking moving functions in nodes
+    //check->PrintState();
+
+    // if(searchOption == 1){
+    //     game_over = uniformSearch(start_game, start);
+    // }
+
+    // game_over->PrintState();
 //     puzzle base_puzzle = puzzle();
 //     base_puzzle.PrintPuzzle();
 //     puzzle new_puzzle = puzzle(start); //testing user inputs
 //     new_puzzle.PrintPuzzle();
 
-//testing each move
+//testing each move as operators first.
 //     int i;
 //     i = new_puzzle.GetZeroSpot();
 //     cout << i << endl;
@@ -81,3 +71,33 @@ int main() {
 //     new_puzzle.PrintPuzzle();
 }
 
+Node * uniformSearch(problem * prb, vector<int> start_point){
+    unsigned long long numberofNodes = 0;
+    unsigned long long depth = 0;
+    priority_queue<Node*> uniform_queue;
+    Node* begin = new Node(start_point);
+    vector<Node*> track;
+    uniform_queue.push(begin);
+
+    while(!uniform_queue.empty()){
+        Node * check = uniform_queue.top(); //taking the first node, at the beginning it will be the node passed in or default node
+        track.push_back(check);
+        uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
+        if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
+            cout << "Puzzle Solved." << endl << "The cost was: " << numberofNodes << endl;
+            return check;
+        }
+        //not in goal state, check to expand nodes.
+        depth++; // keep track of depth
+        for(int i = 0; i < 4; i++){ //have to check 4 operators
+            numberofNodes++; //keep track of number of nodes created
+            if(prb->canDo(check, i)){ //if it is a valid move
+                Node* createChild = prb->Child(check, i); //create the child node
+                uniform_queue.push(createChild); //adding new children to queue
+                cout << "Pushing" << endl;
+                createChild->PrintState();
+            }
+        }
+    }
+    return nullptr;
+}

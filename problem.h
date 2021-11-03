@@ -22,6 +22,10 @@ class problem {
             return end_goal;
         }
 
+        vector<int> getState(){
+            return problem_state;
+        }
+
         vector<int> MoveLeft(vector<int> current){
             int zero_spot;
             for(int i = 0; i < 9; i++){
@@ -60,14 +64,16 @@ class problem {
 
         vector<int> MoveDown(vector<int> current) {
             int zero_spot;
+            vector<int> newState;
             for(int i = 0; i < 9; i++){
                 if(current[i] == 0){
                     zero_spot = i;
                 }
             }
-            swap(current[zero_spot],current[zero_spot + 3]);
+            newState = current;
+            swap(newState[zero_spot],newState[zero_spot + 3]);
 
-            return current;
+            return newState;
         }
 
 
@@ -82,6 +88,7 @@ class problem {
             } else {
                 new_child = new Node(parent->getCost(), MoveDown(parent->getState()), parent);
             }
+            return new_child;
         }
 
         bool canDo(Node * curr, int option){
