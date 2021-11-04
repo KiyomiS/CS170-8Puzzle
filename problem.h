@@ -2,6 +2,7 @@
 #define PROBLEM_H
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include <algorithm>
 
 #include "Node.h"
@@ -10,12 +11,18 @@ using namespace std;
 class problem {
     private:
        vector<int>problem_state; // array of size 9 to hold the problem.
-       vector<int>end_goal = {1, 2, 3, 4, 5, 6, 7, 8, 0};//goal state
+       vector<int>end_goal;//goal state
     public:
         problem() {};
 
         problem(vector<int> input_puzzle){
             this->problem_state = input_puzzle;
+            vector<int> end(0);
+            for(int i = 0; i < input_puzzle.size() - 1; i ++){ // 0 1 2 3 4 5 6 7 -> 1 2 3 4 5 6 7 8 0
+                end.push_back(i + 1);
+            }
+            end.push_back(0);
+            end_goal = end;
         };
 
         vector<int> getGoal(){
@@ -28,7 +35,7 @@ class problem {
 
         vector<int> MoveLeft(vector<int> current){
             int zero_spot;
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < current.size(); i++){
                 if(current[i] == 0){
                     zero_spot = i;
                 }
@@ -40,7 +47,7 @@ class problem {
 
         vector<int> MoveRight(vector<int> current){
             int zero_spot;
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < current.size(); i++){
                 if(current[i] == 0){
                     zero_spot = i;
                 }
@@ -52,12 +59,12 @@ class problem {
 
         vector<int> MoveUp(vector<int> current) {
             int zero_spot;
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < current.size(); i++){
                 if(current[i] == 0){
                     zero_spot = i;
                 }
             }
-            swap(current[zero_spot],current[zero_spot - 3]);
+            swap(current[zero_spot],current[zero_spot - sqrt(current.size())]);
 
             return current;
         }
@@ -65,13 +72,13 @@ class problem {
         vector<int> MoveDown(vector<int> current) {
             int zero_spot;
             vector<int> newState;
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < current.size(); i++){
                 if(current[i] == 0){
                     zero_spot = i;
                 }
             }
             newState = current;
-            swap(newState[zero_spot],newState[zero_spot + 3]);
+            swap(newState[zero_spot],newState[zero_spot + sqrt(current.size())]);
 
             return newState;
         }
@@ -80,16 +87,16 @@ class problem {
         Node * Child(Node* parent, int oper){
             Node * new_child;
             if(oper == 0) {
-                new_child = new Node(parent->getCost(), MoveLeft(parent->getState()), parent);
+                new_child = new Node(parent->getCost(), MoveLeft(parent->getState()), parent, parent->getSize());
                 //cout << "left made" << endl;
             } else if (oper == 1) {
-                new_child = new Node(parent->getCost(), MoveRight(parent->getState()), parent);
+                new_child = new Node(parent->getCost(), MoveRight(parent->getState()), parent, parent->getSize());
                 //cout << "right made" << endl;
             } else if (oper == 2) {
-                new_child = new Node(parent->getCost(), MoveUp(parent->getState()), parent);
+                new_child = new Node(parent->getCost(), MoveUp(parent->getState()), parent, parent->getSize());
                 //cout << "up made" << endl;
             } else {
-                new_child = new Node(parent->getCost(), MoveDown(parent->getState()), parent);
+                new_child = new Node(parent->getCost(), MoveDown(parent->getState()), parent, parent->getSize());
                 //cout << "down made" << endl;
             }
             return new_child;

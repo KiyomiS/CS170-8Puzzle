@@ -13,14 +13,17 @@ Node * uniformSearch(problem * prb, vector<int> start_point);
 int main() {
     int option, searchOption;
     int input;
-    vector<int>start = {1, 2, 3, 4, 5, 6, 7, 8, 0};
+    vector<int>start(0);
     cout << "Select your option:" << endl << " 1. Base Game\n 2. Create your own game" << endl;
     cin >> option;
+    if(option == 1) {
+        start = {1, 2, 3, 4, 5, 6, 7, 8, 0};
+    }
     if(option == 2){
         cout << "Please enter your puzzle one integer at a time with spaces" << endl;
         for(int i = 0; i < 9; i++){//take in the puzzle one integer at a time
             cin >> input;
-            start[i] = input;
+            start.push_back(input);
         }
     }
     cout << "Select search algorithm" << endl;
@@ -29,7 +32,7 @@ int main() {
 
     problem * start_game = new problem(start);
     Node * game_over = nullptr;
-    Node* print_start = new Node(start_game->getState());
+    Node* print_start = new Node(start, start.size());
 
     print_start->PrintState();
 
@@ -76,7 +79,7 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
     unsigned long long numberofNodes = 0;
     unsigned long long depth = 0;
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
-    Node* begin = new Node(start_point);
+    Node* begin = new Node(start_point, start_point.size());
     vector<Node*> track(0); //keep track of all states
     vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
     uniform_queue.push(begin);
@@ -95,7 +98,7 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
 
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
-            cout << "Puzzle Solved." << endl << "The cost was: " << check->getCost() << endl;
+            cout << "Puzzle Solved." << endl << "The depth was: " << check->getCost() << endl;
             cout << "There were " << numberofNodes << " nodes created." << endl;
             return check;
         }

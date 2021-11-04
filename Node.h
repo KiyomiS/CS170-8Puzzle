@@ -13,20 +13,26 @@ class Node{
         vector<int> state;
         Node *parent;
     public:
-        Node(vector<int> st){
+        Node(vector<int> st, int size){
+            this->puzzle_size = size;
             this->cost = 0;
             this->Hcost = 0;
             this->state = st;
             this->parent = nullptr;
         }
 
-        Node(int cst, vector<int> st, Node* par){
+        Node(int cst, vector<int> st, Node* par, int size){
+            this->puzzle_size = size;
             this->cost = par->cost + 1;
             this->state = st;
             this->parent = par;
         }
 
         ~Node(){};
+
+        int getSize(){
+            return puzzle_size;
+        }
 
         void setCost(int i){
             this->cost = i;
@@ -45,9 +51,9 @@ class Node{
         }
 
         void PrintState(){
-            for(int i = 0; i < 9; i++){
+            for(int i = 0; i < puzzle_size; i++){
                 cout << state[i] << " ";
-                if(i == 2 || i == 5 || i == 8){
+                if(i == (sqrt(puzzle_size) - 1) || i == (2*sqrt(puzzle_size) - 1) || i == (3*sqrt(puzzle_size) - 1)){
                     cout << endl;
                 }
             }
