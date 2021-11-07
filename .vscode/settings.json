@@ -16,6 +16,7 @@
   "C_Cpp_Runner.warningsAsError": false,
   "files.associations": {
     "queue": "cpp",
-    "new": "cpp"
+    "new": "cpp",
+    "cmath": "cpp"
   }
 }

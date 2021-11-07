@@ -152,6 +152,51 @@ class problem {
 
             node->setHCost(cost);
         }
+
+        void ManhattanDistance(Node * node) {
+            //blank's distance from final spot.
+            int cost = 0;
+            int size = node->getSize();
+            vector<int> state = node->getState();
+            int zero_spot;
+
+            //find zero spot
+            for(int i = 0; i < state.size(); i++){
+                if(state[i] == 0){
+                    zero_spot = i;
+                }
+            }
+
+
+            if(zero_spot != size - 1) {
+
+                int i = 1;
+                int left_right = 0;
+                bool checked = false;
+                //to tell x by x puzzle
+                while(i != sqrt(size) + 1) {
+                    //checking how many rows down we have to go
+                    //if its less than or equal to the #'s in the row, greater than the numbers in the row before
+                    if((zero_spot <= (i * sqrt(size) - 1)) && (zero_spot > (i-1) * sqrt(size) - 1)) {
+                        cost++;
+                        if(zero_spot <= (size - 1)) {//if its in the last row you don't want to tell it to move down more so remove the last addition of move down.
+                            cost--;
+                            //cout << "hello??" << endl;
+                        }
+                        //only have to calculate left/right once, it'll always be the same no matter what row
+                        if(checked == false) {
+                            left_right = (i * sqrt(size) - 1) - zero_spot;
+                            //cout << "computed left right" << endl;
+                            checked = true;
+                        }
+                        //cout << "computed up down" << endl;
+                    }
+                    ++i;
+                }
+                cost = cost + left_right;
+                node->setHCost(cost);
+            }
+        }
 };
 
 
@@ -159,6 +204,7 @@ class problem {
 // 4 5 6
 // 7 8 0
 // 1 2 3 4 5 6 7 8 9
+
 // 0 1 2 3 4 5 6 7 8
 // 3 4 5
 // 6 7 8

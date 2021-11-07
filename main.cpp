@@ -178,6 +178,7 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
     unsigned long long depth = 0;
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point, start_point.size());
+    prb->misplacedTile(begin);
     long long qSize = 0;
     vector<Node*> track(0); //keep track of all states
     vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
@@ -273,6 +274,7 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
     unsigned long long depth = 0;
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point, start_point.size());
+    prb->ManhattanDistance(begin);
     long long qSize = 0;
     vector<Node*> track(0); //keep track of all states
     vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
@@ -309,6 +311,7 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
             if(prb->canDo(check, i)){ //if it is a valid move
                 numberofNodes++; //keep track of number of nodes created
                 Node* createChild = prb->Child(check, i); //create the child node
+                prb->ManhattanDistance(createChild);
 
                 bool istrue = false;
                 for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been expanded
