@@ -28,15 +28,26 @@ int main() {
             start.push_back(input);
         }
     }
-    cout << "Select search algorithm" << endl;
-    cout << " Option 1: Uniform cost search\n Option 2: A* with the Misplaced Tile heuristic\n Option 3: A* with the Manhattan Distance heuristic" << endl;
-    cin >> searchOption;
 
     problem * start_game = new problem(start);
     Node * game_over = nullptr;
     Node* print_start = new Node(start, start.size());
 
     print_start->PrintState();
+    // if(start_game->canDo(print_start, 2) == true){
+    //     Node* createChild = start_game->Child(print_start, 2); //create the child node
+    //     createChild->PrintState();
+    // } else {
+    //     cout << "you fucked up bitch" << endl;
+    // }
+
+    
+    cout << "Select search algorithm" << endl;
+    cout << " Option 1: Uniform cost search\n Option 2: A* with the Misplaced Tile heuristic\n Option 3: A* with the Manhattan Distance heuristic" << endl;
+    cin >> searchOption;
+
+
+
 
     //Node * check = start_game->Child(print_start, 4); checking moving functions in nodes
     //check->PrintState();

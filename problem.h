@@ -135,6 +135,49 @@ class problem {
             }
             return false;
         }
+        //is in progress for scaling.
+        // bool canDo(Node * curr, int option){
+        //     int zero_spot;
+        //     int size = curr->getSize();
+        //     int i;
+        //     for(int i = 0; i < 9; i++){
+        //         if(curr->getState()[i] == 0){
+        //             zero_spot = i;
+        //         }
+        //     }
+
+        //     if(option == 0){//left
+        //         //cout << size << endl;
+        //         for(i = 1; i < sqrt(size); i++){
+        //             //cout << zero_spot << endl;
+        //             if((zero_spot == i * (sqrt(size))) || (zero_spot == 0)){
+        //                 //cout << "we're false" << endl;
+        //                 return false;
+        //             }
+        //         }
+        //     }
+
+        //     if(option == 1){// right
+        //         for(i = 1; i < sqrt(size); i++){
+        //             if(zero_spot == i * sqrt(size) - 1){
+        //                 return false;
+        //             }
+        //         }
+        //     }
+
+        //     if(option == 2){//up
+        //         if(zero_spot <= sqrt(size) - 1){ //sqrt(size) - 1 holds the highest top value. 0 1 2 3 4
+        //             return false;
+        //         }
+        //     }
+
+        //     if(option == 3){//down
+        //         if(zero_spot >= (size - 1 - sqrt(size))){ // size - sqrt size if it was 4x4 16 - 4 = 12, starting point of bottom.
+        //             return false;
+        //         }
+        //     }
+        //     return true;
+        // }
 
         void misplacedTile(Node * node) {
             int cost = 0;
@@ -159,14 +202,12 @@ class problem {
             int size = node->getSize();
             vector<int> state = node->getState();
             int zero_spot;
-
             //find zero spot
             for(int i = 0; i < state.size(); i++){
                 if(state[i] == 0){
                     zero_spot = i;
                 }
             }
-
 
             if(zero_spot != size - 1) {
 
@@ -210,4 +251,6 @@ class problem {
 // 6 7 8
 // up = - 3 indices, down = + 3, left = + 1, right = - 1 
 //include edge cases for each.
+//to scale:
+//to go left it has to be less than or equal to row * sqrt(size) - 1
 #endif

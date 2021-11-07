@@ -57,12 +57,20 @@ class Node{
         }
 
         void PrintState(){
-            for(int i = 0; i < puzzle_size; i++){
-                cout << state[i] << " ";
-                if(i == (sqrt(puzzle_size) - 1) || i == (2*sqrt(puzzle_size) - 1) || i == (3*sqrt(puzzle_size) - 1)){
+            //scale for multiple puzzle sizes:
+            int i = sqrt(puzzle_size);
+            for(int j = 0; j < puzzle_size; j++){
+                cout << state[j] << " ";
+                if(((j+1) % i) == 0) {
                     cout << endl;
-                }
+                } 
             }
+            // for(int i = 0; i < puzzle_size; i++){
+            //     cout << state[i] << " ";
+            //     if(i == (sqrt(puzzle_size) - 1) || i == (2*sqrt(puzzle_size) - 1) || i == (3*sqrt(puzzle_size) - 1)){
+            //         cout << endl;
+            //     }
+            // }
             cout << endl;
         }
 
