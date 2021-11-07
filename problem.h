@@ -135,6 +135,23 @@ class problem {
             }
             return false;
         }
+
+        void misplacedTile(Node * node) {
+            int cost = 0;
+            int size = node->getSize();
+            vector<int> state = node->getState();
+            //calculate every number thats not in the right spot
+
+            for(int i = 0; i < size; i++) {
+                if(state[i] != 0){
+                    if(state[i] != end_goal[i]){
+                        cost++;
+                    }
+                }
+            }
+
+            node->setHCost(cost);
+        }
 };
 
 

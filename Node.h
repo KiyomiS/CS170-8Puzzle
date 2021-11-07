@@ -24,6 +24,7 @@ class Node{
         Node(int cst, vector<int> st, Node* par, int size){
             this->puzzle_size = size;
             this->cost = par->cost + 1;
+            this->Hcost = 0; //for uniform it will always be 0, the other ones will have calculators to calculate this.
             this->state = st;
             this->parent = par;
         }
@@ -37,6 +38,11 @@ class Node{
         void setCost(int i){
             this->cost = i;
         }
+
+        void setHCost(int i) {
+            this->Hcost = i;
+        }
+
 
         int getHCost() const {
             return Hcost;
@@ -71,9 +77,11 @@ class Node{
 
 };
 
+
 struct compareNodes{ //ordering from lowest to greatest
     bool operator()(const Node *l, const Node * r) const {
-        return l->getCost() > r->getCost();
+        //have to calculate cost of G and cost of H for uniform make sure to set H to 0.
+        return l->getCost() + l->getHCost() > r->getHCost() + r->getCost();
     }
 };	
 
