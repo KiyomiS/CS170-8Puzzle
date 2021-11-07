@@ -107,8 +107,8 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
         expandedSet.push_back(check);
 
         for(int i = 0; i < 4; i++){ //have to check 4 operators
-            numberofNodes++; //keep track of number of nodes created
             if(prb->canDo(check, i)){ //if it is a valid move
+                numberofNodes++; //keep track of number of nodes created
                 Node* createChild = prb->Child(check, i); //create the child node
 
                 bool istrue = false;
