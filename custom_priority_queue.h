@@ -37,18 +37,4 @@ public:
 		return false;
 	}
 
-	bool isGreater(const T& state){
-		auto first = this->c.begin();
-		auto last = this->c.end();
-		while (first != last){
-			if (*first == state){
-				if (*first > state){
-					return true;
-				}
-			}
-			++first;
-		}
-		return false;
-	}
-
 };
