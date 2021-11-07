@@ -14,13 +14,13 @@ int main() {
     int option, searchOption;
     int input;
     vector<int>start(0);
-    cout << "Select your option:" << endl << " 1. Base Game\n 2. Create your own game" << endl;
+    cout << "Welcome to my 170 8-Puzzle Solver. Type '1' to use a default puzzle, or '2' to create your own." << endl;
     cin >> option;
     if(option == 1) {
         start = {1, 2, 3, 4, 5, 6, 7, 8, 0};
     }
     if(option == 2){
-        cout << "Please enter your puzzle one integer at a time with spaces" << endl;
+        cout << "Enter your puzzle, using a zero to represent the blank. Please only enter valid 8-puzzles. Enter the puzzle with spaces in between each number." << endl;
         for(int i = 0; i < 9; i++){//take in the puzzle one integer at a time
             cin >> input;
             start.push_back(input);
@@ -80,11 +80,16 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
     unsigned long long depth = 0;
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point, start_point.size());
+    long long qSize = 0;
     vector<Node*> track(0); //keep track of all states
     vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
     uniform_queue.push(begin);
    
     while(!uniform_queue.empty()){
+        if(uniform_queue.size() > qSize) {
+            qSize = uniform_queue.size(); // keep track of queue size for output
+        }
+        
         Node * check = uniform_queue.top(); //taking the first node, at the beginning it will be the node passed in or default node
         
         if(track.empty()){
@@ -99,7 +104,8 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
             cout << "Puzzle Solved." << endl << "The depth was: " << check->getCost() << endl;
-            cout << "There were " << numberofNodes << " nodes created." << endl;
+            cout << "There were " << numberofNodes << " nodes expanded." << endl;
+            cout << "The max queue size was: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
