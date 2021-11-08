@@ -2,11 +2,15 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <time.h>
 #include "problem.h"
 #include "Node.h"
 #include "custom_priority_queue.h"
 
 using namespace std;
+
+//https://stackoverflow.com/questions/876901/calculating-execution-time-in-c
+//used to get time
 
 Node * uniformSearch(problem * prb, vector<int> start_point);
 Node * Astar_MisplacedTile(problem * prb, vector<int> start_point);
@@ -29,6 +33,8 @@ int main() {
         }
     }
 
+    //for testing
+    //start = {1, 3, 6, 5, 0, 7, 4, 8, 2};
     problem * start_game = new problem(start);
     Node * game_over = nullptr;
     Node* print_start = new Node(start, start.size());
@@ -51,7 +57,8 @@ int main() {
 
     //Node * check = start_game->Child(print_start, 4); checking moving functions in nodes
     //check->PrintState();
-
+    //game_over = Astar_ManhattanDistance(start_game, start);
+    clock_t tStart = clock();
     if(searchOption == 1){
         game_over = uniformSearch(start_game, start);
     } else if (searchOption == 2) {
@@ -59,6 +66,7 @@ int main() {
     } else {
         game_over = Astar_ManhattanDistance(start_game, start);
     }
+    cout << "Time taken was :" << (double)(clock() - tStart)/CLOCKS_PER_SEC << endl;
 
     game_over->PrintState();
 //     puzzle base_puzzle = puzzle();
@@ -290,6 +298,9 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
     vector<Node*> track(0); //keep track of all states
     vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
     uniform_queue.push(begin);
+    // cout << begin->getHCost() << endl;
+    // string n;
+    // cin >> n;
    
     while(!uniform_queue.empty()){
         if(uniform_queue.size() > qSize) {
@@ -323,6 +334,7 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
                 numberofNodes++; //keep track of number of nodes created
                 Node* createChild = prb->Child(check, i); //create the child node
                 prb->ManhattanDistance(createChild);
+                //cout << createChild->getHCost() << endl;
 
                 bool istrue = false;
                 for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been expanded

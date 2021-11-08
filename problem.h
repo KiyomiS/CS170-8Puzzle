@@ -109,6 +109,7 @@ class problem {
                     zero_spot = i;
                 }
             }
+            //edge cases
             if(option == 0){
                 if(zero_spot == 0 || zero_spot == 3 || zero_spot == 6){
                     return false;
@@ -200,51 +201,38 @@ class problem {
             //blank's distance from final spot.
             int cost = 0;
             int size = node->getSize();
+            int calc = 0;
+
             vector<int> state = node->getState();
-            int zero_spot;
-            //find zero spot
-            for(int i = 0; i < state.size(); i++){
-                if(state[i] == 0){
-                    zero_spot = i;
-                }
-            }
-
-            if(zero_spot != size - 1) {
-
-                int i = 1;
-                int left_right = 0;
-                bool checked = false;
-                //to tell x by x puzzle
-                while(i != sqrt(size) + 1) {
-                    //checking how many rows down we have to go
-                    //if its less than or equal to the #'s in the row, greater than the numbers in the row before
-                    if((zero_spot <= (i * sqrt(size) - 1)) && (zero_spot > (i-1) * sqrt(size) - 1)) {
-                        cost++;
-                        if(zero_spot <= (size - 1)) {//if its in the last row you don't want to tell it to move down more so remove the last addition of move down.
-                            cost--;
-                            //cout << "hello??" << endl;
+            for(int i = 0; i < size; i++){
+                if(state[i] != 0){
+                    if(state[i] != end_goal[i]){ //if it is not in the correct spot
+                        calc = i - (state[i] - 1); //calculate how off it is
+                        while(calc >= sqrt(size)){ //check if it needs to move down
+                            calc -= 3;
+                            cost++;
                         }
-                        //only have to calculate left/right once, it'll always be the same no matter what row
-                        if(checked == false) {
-                            left_right = (i * sqrt(size) - 1) - zero_spot;
-                            //cout << "computed left right" << endl;
-                            checked = true;
+                        while(calc <= -sqrt(size)){ //check if it needs to move up
+                            calc +=3;
+                            cost++;
                         }
-                        //cout << "computed up down" << endl;
+                        //cout << "adding to cost" << endl;
+                        cost += fabs(calc); //add left to right cost (abs takes care of left and right. easy since cost of each move is 1)
                     }
-                    ++i;
                 }
-                cost = cost + left_right;
-                node->setHCost(cost);
             }
+            node->setHCost(cost);
+            //cout << node->getHCost();
         }
 };
 
 
-// 1 2 3 
-// 4 5 6
-// 7 8 0
-// 1 2 3 4 5 6 7 8 9
+// 1 2 3   1 2 3
+// 4 5 6   4 8 6
+// 7 8 0   7 5 0
+
+// 1 2 3 4 5 6 7 8 0
+// 1 2 3 4 8 6 7 5 0
 
 // 0 1 2 3 4 5 6 7 8
 // 3 4 5
