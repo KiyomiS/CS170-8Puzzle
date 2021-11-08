@@ -107,6 +107,7 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point, start_point.size());
     long long qSize = 0;
+    unsigned long long nodesExpanded = 0;
     vector<Node*> track(0); //keep track of all states
     vector<Node*> expandedSet(0); //keep track of all states that have already been expanded.
     uniform_queue.push(begin);
@@ -130,12 +131,13 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
             cout << "Goal state!" << endl << "Solution depth was: " << check->getCost() << endl;
-            cout << "Number of nodes expanded: " << numberofNodes << endl;
+            cout << "Number of nodes expanded: " << nodesExpanded << endl;
             cout << "Max queue size: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
         depth++; // keep track of depth
+        nodesExpanded++;
         expandedSet.push_back(check);
 
         for(int i = 0; i < 4; i++){ //have to check 4 operators
@@ -198,6 +200,7 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
     unsigned long long depth = 0;
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point, start_point.size());
+    unsigned long long nodesExpanded = 0;
     prb->misplacedTile(begin);
     long long qSize = 0;
     vector<Node*> track(0); //keep track of all states
@@ -223,12 +226,13 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
             cout << "Goal state!" << endl << "Solution depth was: " << check->getCost() << endl;
-            cout << "Number of nodes expanded: " << numberofNodes << endl;
+            cout << "Number of nodes expanded: " << nodesExpanded << endl;
             cout << "Max queue size: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
         depth++; // keep track of depth
+        nodesExpanded++;
         expandedSet.push_back(check);
 
         for(int i = 0; i < 4; i++){ //have to check 4 operators
@@ -292,6 +296,7 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
 Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
     unsigned long long numberofNodes = 0;
     unsigned long long depth = 0;
+    unsigned long long nodesExpanded = 0;
     custom_priority_queue<Node*, vector<Node*>, compareNodes> uniform_queue;
     Node* begin = new Node(start_point, start_point.size());
     prb->ManhattanDistance(begin);
@@ -322,12 +327,13 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
             cout << "Goal state!" << endl << "Solution depth was: " << check->getCost() << endl;
-            cout << "Number of nodes expanded: " << numberofNodes << endl;
+            cout << "Number of nodes expanded: " << nodesExpanded << endl;
             cout << "Max queue size: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
         depth++; // keep track of depth
+        nodesExpanded++;
         expandedSet.push_back(check);
 
         for(int i = 0; i < 4; i++){ //have to check 4 operators

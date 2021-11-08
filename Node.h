@@ -78,11 +78,6 @@ class Node{
             return state == rhs.getState();
         }
 
-        bool operator>(const Node& rhs) const{
-            return this->getCost() > rhs.getCost();
-        }
-
-
 };
 
 
