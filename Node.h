@@ -65,12 +65,6 @@ class Node{
                     cout << endl;
                 } 
             }
-            // for(int i = 0; i < puzzle_size; i++){
-            //     cout << state[i] << " ";
-            //     if(i == (sqrt(puzzle_size) - 1) || i == (2*sqrt(puzzle_size) - 1) || i == (3*sqrt(puzzle_size) - 1)){
-            //         cout << endl;
-            //     }
-            // }
             cout << endl;
         }
 

@@ -33,19 +33,12 @@ int main() {
         }
     }
 
-    //for testing
-    //start = {1, 3, 6, 5, 0, 7, 4, 8, 2};
+//creation of the problem
     problem * start_game = new problem(start);
     Node * game_over = nullptr;
     Node* print_start = new Node(start, start.size());
 
     print_start->PrintState();
-    // if(start_game->canDo(print_start, 2) == true){
-    //     Node* createChild = start_game->Child(print_start, 2); //create the child node
-    //     createChild->PrintState();
-    // } else {
-    //     cout << "you fucked up bitch" << endl;
-    // }
 
     
     cout << "Select search algorithm" << endl;
@@ -53,12 +46,6 @@ int main() {
     cin >> searchOption;
     cout << endl;
 
-
-
-
-    //Node * check = start_game->Child(print_start, 4); checking moving functions in nodes
-    //check->PrintState();
-    //game_over = Astar_ManhattanDistance(start_game, start);
     clock_t tStart = clock();
     if(searchOption == 1){
         game_over = uniformSearch(start_game, start);
@@ -70,35 +57,6 @@ int main() {
     cout << "Time taken was: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << endl;
 
     game_over->PrintState();
-//     puzzle base_puzzle = puzzle();
-//     base_puzzle.PrintPuzzle();
-//     puzzle new_puzzle = puzzle(start); //testing user inputs
-//     new_puzzle.PrintPuzzle();
-
-//testing each move as operators first.
-//     int i;
-//     i = new_puzzle.GetZeroSpot();
-//     cout << i << endl;
-
-//     new_puzzle.MoveLeft(i);
-
-//     new_puzzle.PrintPuzzle();
-
-//     i = new_puzzle.GetZeroSpot();
-
-//     new_puzzle.MoveRight(i);
-
-//     new_puzzle.PrintPuzzle();
-//     i = new_puzzle.GetZeroSpot();
-
-//     new_puzzle.MoveUp(i);
-
-//     new_puzzle.PrintPuzzle();
-//     i = new_puzzle.GetZeroSpot();
-
-//     new_puzzle.MoveDown(i);
-
-//     new_puzzle.PrintPuzzle();
 }
 
 Node * uniformSearch(problem * prb, vector<int> start_point){
