@@ -51,6 +51,7 @@ int main() {
     cout << "Select search algorithm" << endl;
     cout << " Option 1: Uniform cost search\n Option 2: A* with the Misplaced Tile heuristic\n Option 3: A* with the Manhattan Distance heuristic" << endl;
     cin >> searchOption;
+    cout << endl;
 
 
 
@@ -128,9 +129,9 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
 
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
-            cout << "Puzzle Solved." << endl << "The depth was: " << check->getCost() << endl;
-            cout << "There were " << numberofNodes << " nodes expanded." << endl;
-            cout << "The max queue size was: " << qSize << endl;
+            cout << "Goal state!" << endl << "Solution depth was: " << check->getCost() << endl;
+            cout << "Number of nodes expanded: " << numberofNodes << endl;
+            cout << "Max queue size: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
@@ -221,9 +222,9 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
 
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
-            cout << "Puzzle Solved." << endl << "The depth was: " << check->getCost() << endl;
-            cout << "There were " << numberofNodes << " nodes expanded." << endl;
-            cout << "The max queue size was: " << qSize << endl;
+            cout << "Goal state!" << endl << "Solution depth was: " << check->getCost() << endl;
+            cout << "Number of nodes expanded: " << numberofNodes << endl;
+            cout << "Max queue size: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
@@ -320,9 +321,9 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
 
         uniform_queue.pop(); //remove node we are checking because we wont have to check it again since we're creating all of its children.
         if (check->getState() == prb->getGoal()){ //checking if we're at the goal state
-            cout << "Puzzle Solved." << endl << "The depth was: " << check->getCost() << endl;
-            cout << "There were " << numberofNodes << " nodes expanded." << endl;
-            cout << "The max queue size was: " << qSize << endl;
+            cout << "Goal state!" << endl << "Solution depth was: " << check->getCost() << endl;
+            cout << "Number of nodes expanded: " << numberofNodes << endl;
+            cout << "Max queue size: " << qSize << endl;
             return check;
         }
         //not in goal state, check to expand nodes.
