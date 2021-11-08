@@ -24,7 +24,7 @@ int main() {
     cout << "Welcome to my 170 8-Puzzle Solver. Type '1' to use a default puzzle, or '2' to create your own." << endl;
     cin >> option;
     if(option == 1) {
-        start = {1, 2, 3, 4, 5, 6, 7, 8, 0};
+        start = {0, 7, 2, 4, 6, 1, 3, 5, 8};
     }
     if(option == 2){
         cout << "Enter your puzzle, using a zero to represent the blank. Please only enter valid 8-puzzles. Enter the puzzle with spaces in between each number." << endl;
