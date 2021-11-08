@@ -67,7 +67,7 @@ int main() {
     } else {
         game_over = Astar_ManhattanDistance(start_game, start);
     }
-    cout << "Time taken was :" << (double)(clock() - tStart)/CLOCKS_PER_SEC << endl;
+    cout << "Time taken was: " << (double)(clock() - tStart)/CLOCKS_PER_SEC << endl;
 
     game_over->PrintState();
 //     puzzle base_puzzle = puzzle();
@@ -271,7 +271,7 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
                     } else {
                         for(int i = 0; i < track.size(); i++) {
                             if(track[i]->getState() == createChild->getState()){ //find the one in the queue by looking through track
-                                if(track[i]->getCost() < createChild->getCost()){ //check if node in track has less cost
+                                if(track[i]->getCost() + track[i]->getHCost() < createChild->getCost() + createChild->getHCost()){ //check if node in track has less cost
                                     uniform_queue.push(track[i]); //if so add it instead of new child
                                     //delete createChild;
                                     //cout << "Option" << endl;
@@ -280,6 +280,7 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
                                     uniform_queue.remove(createChild);
                                     uniform_queue.push(createChild); //add new lower node
                                     track[i]->setCost(createChild->getCost()); //set the tracked nodes cost to lower of the two.
+                                    track[i]->setHCost(createChild->getHCost()); //have to set h cost as well for these.
                                     //cout << "Option" << endl;
                                     //createChild->PrintState(); 
                                 }
@@ -371,7 +372,7 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
                     } else {
                         for(int i = 0; i < track.size(); i++) {
                             if(track[i]->getState() == createChild->getState()){ //find the one in the queue by looking through track
-                                if(track[i]->getCost() < createChild->getCost()){ //check if node in track has less cost
+                                if(track[i]->getCost() + track[i]->getHCost() < createChild->getCost() + createChild->getHCost()){ //check if node in track has less cost
                                     uniform_queue.push(track[i]); //if so add it instead of new child
                                     //delete createChild;
                                     //cout << "Option" << endl;
@@ -380,6 +381,7 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
                                     uniform_queue.remove(createChild);
                                     uniform_queue.push(createChild); //add new lower node
                                     track[i]->setCost(createChild->getCost()); //set the tracked nodes cost to lower of the two.
+                                    track[i]->setHCost(createChild->getHCost());
                                     //cout << "Option" << endl;
                                     //createChild->PrintState(); 
                                 }
