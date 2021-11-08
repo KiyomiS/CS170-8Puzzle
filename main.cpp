@@ -9,6 +9,7 @@
 
 using namespace std;
 
+//url for the rest of the code is https://github.com/KiyomiS/CS170-8Puzzle
 //https://stackoverflow.com/questions/876901/calculating-execution-time-in-c
 //used to get time
 
@@ -107,7 +108,7 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
                 for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been expanded
                     // cout << "Checking" << endl;
                     //cout << "checking if state has been visited" << endl;
-                    if(expandedSet[i] == createChild){ //if state is visited
+                    if(expandedSet[i]->getState() == createChild->getState()){ //if state is visited
                          istrue = true;
                     }
                 }
@@ -123,6 +124,7 @@ Node * uniformSearch(problem * prb, vector<int> start_point){
 
                 //cout << "done checking" << endl;
                 if(!istrue) { //not an old expanded state, check if its in queue
+                    cout << "adding node" << endl;
                     if(!uniform_queue.find(createChild)){ //if its not in the queue nor has it been expanded nor is it in track, basically a whole new state
                         uniform_queue.push(createChild); //add to queue
                         track.push_back(createChild); //add to track as well
@@ -205,7 +207,7 @@ Node * Astar_MisplacedTile(problem * prb, vector<int> start_point){
                 for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been expanded
                     // cout << "Checking" << endl;
                     //cout << "checking if state has been visited" << endl;
-                    if(expandedSet[i] == createChild){ //if state is visited
+                    if(expandedSet[i]->getState() == createChild->getState()){ //if state is visited
                          istrue = true;
                     }
                 }
@@ -306,7 +308,7 @@ Node * Astar_ManhattanDistance(problem * prb, vector<int> start_point){
                 for(int i = 0; i < expandedSet.size(); i++){ //looking to see state has already been expanded
                     // cout << "Checking" << endl;
                     //cout << "checking if state has been visited" << endl;
-                    if(expandedSet[i] == createChild){ //if state is visited
+                    if(expandedSet[i]->getState() == createChild->getState()){ //if state is visited
                          istrue = true;
                     }
                 }
